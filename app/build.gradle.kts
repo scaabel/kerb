@@ -43,6 +43,7 @@ dependencies {
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
     implementation(libs.compose.material3)
+    implementation(libs.compose.material.icons.extended)
     implementation(libs.compose.ui.tooling.preview)
     debugImplementation(libs.compose.ui.tooling)
 
@@ -66,8 +67,10 @@ dependencies {
 
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.lifecycle.runtime)
+    implementation(libs.lifecycle.compose)
 
     implementation(libs.coroutines.android)
 
     implementation(libs.material)
+    implementation(libs.core.ktx)
 }
