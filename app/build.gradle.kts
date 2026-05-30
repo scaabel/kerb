@@ -70,4 +70,5 @@ dependencies {
     implementation(libs.coroutines.android)
 
     implementation(libs.material)
+    implementation(libs.core.ktx)
 }

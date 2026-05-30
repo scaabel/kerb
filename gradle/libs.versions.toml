@@ -13,6 +13,7 @@ lifecycle = "2.7.0"
 coroutines = "1.8.0"
 ksp = "1.9.23-1.0.20"
 material = "1.12.0"
+core-ktx = "1.13.1"
 
 [libraries]
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
@@ -36,6 +37,7 @@ lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmode
 lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
