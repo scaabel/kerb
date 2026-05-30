@@ -101,7 +101,7 @@ fun HomeScreen(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(uiState.reminders, key = { it.id }) { reminder ->
+                items(uiState.reminders, key = { reminder: ReminderEntity -> reminder.id }) { reminder ->
                     SwipeToDeleteReminderItem(
                         reminder = reminder,
                         onCheckedChange = { viewModel.setReminderComplete(reminder.id, it) },
@@ -144,9 +144,10 @@ fun HomeScreen(
             }
 
             // Session card
-            if (uiState.isConnected && uiState.activeTrip != null) {
+            val connectedAt = uiState.connectedAt
+            if (uiState.isConnected && connectedAt != null) {
                 Spacer(Modifier.height(12.dp))
-                SessionCard(connectedAt = uiState.activeTrip!!.connectedAt)
+                SessionCard(connectedAt = connectedAt)
             }
 
             Spacer(Modifier.height(12.dp))

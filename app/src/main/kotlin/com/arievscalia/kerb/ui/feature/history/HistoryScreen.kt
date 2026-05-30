@@ -86,7 +86,7 @@ fun HistoryScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 item { Spacer(Modifier.height(4.dp)) }
-                items(uiState.trips, key = { it.trip.id }) { summary ->
+                items(uiState.trips, key = { summary: TripSummary -> summary.trip.id }) { summary ->
                     TripCard(summary)
                 }
                 item { Spacer(Modifier.height(8.dp)) }

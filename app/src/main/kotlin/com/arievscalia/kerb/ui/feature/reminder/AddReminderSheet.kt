@@ -38,7 +38,7 @@ fun AddReminderSheet(
     onDismiss: () -> Unit,
     viewModel: AddReminderViewModel = hiltViewModel()
 ) {
-    val sheetState = rememberModalBottomSheetState(skipPartialExpansion = true)
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var text by remember { mutableStateOf("") }
     var trigger by remember { mutableStateOf(ReminderTrigger.LEAVING) }
     val focusRequester = remember { FocusRequester() }

@@ -4,14 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.arievscalia.kerb.data.datastore.KerbPreferences
 import com.arievscalia.kerb.data.db.ReminderEntity
-import com.arievscalia.kerb.data.db.TripEntity
 import com.arievscalia.kerb.data.repository.TripRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -20,9 +20,8 @@ import javax.inject.Inject
 
 data class HomeUiState(
     val isConnected: Boolean = false,
-    val activeTrip: TripEntity? = null,
-    val reminders: List<ReminderEntity> = emptyList(),
-    val showAddReminder: Boolean = false
+    val connectedAt: Long? = null,
+    val reminders: List<ReminderEntity> = emptyList()
 )
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -37,14 +36,17 @@ class HomeViewModel @Inject constructor(
             if (tripId == null) {
                 flowOf(HomeUiState(isConnected = false))
             } else {
-                combine(
-                    tripRepository.getRemindersForTrip(tripId)
-                ) { remindersArray ->
-                    val reminders = remindersArray[0]
-                    HomeUiState(
-                        isConnected = true,
-                        reminders = reminders
-                    )
+                flow {
+                    val trip = tripRepository.getActiveTrip()
+                    val remindersFlow = tripRepository.getRemindersForTrip(tripId)
+                        .map { reminders ->
+                            HomeUiState(
+                                isConnected = true,
+                                connectedAt = trip?.connectedAt,
+                                reminders = reminders
+                            )
+                        }
+                    emitAll(remindersFlow)
                 }
             }
         }
@@ -64,9 +66,5 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             tripRepository.deleteReminder(reminderId)
         }
-    }
-
-    fun showAddReminder() {
-        // Trigger handled via UI state in the screen directly
     }
 }
