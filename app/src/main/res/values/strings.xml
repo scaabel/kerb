@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kerb</string>
+    <string name="notification_channel_service_name">Kerb background service</string>
+    <string name="notification_channel_connect_name">Car connected</string>
+    <string name="notification_channel_disconnect_name">Car disconnected</string>
+</resources>
